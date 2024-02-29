@@ -2,7 +2,7 @@
 
 from helpers import (
     exit_program,
-    helper_class_template,
+    helper_course_template,
     submenu_2
 )
 
@@ -14,34 +14,34 @@ def main():
         if choice == "0":
             exit_program()
         elif choice == "1":
-            classes()
+            courses()
         elif choice == "2":
             students()
         else:
             print("Invalid choice")
 
-def classes():
+def courses():
     while True:
-        submenu_classes()
+        submenu_courses()
         choice = input(">> ")
         if choice == "0":
-            break  # Go back to the main menu
+            break
         elif choice == "1":
-            list_of_classes()
+            list_of_courses()
         elif choice == "2":
             submenu_2()
         else:
             print("Invalid choice")
 
-def list_of_classes():
+def list_of_courses():
     while True:
-        submenu_list_of_classes()
+        submenu_list_of_courses()
         choice = input(">> ")
         
         if choice == "0":
             break
         elif choice == "1":
-            helper_class_template()
+            helper_course_template()
 
 def students():
     pass
@@ -50,30 +50,30 @@ def students():
 def menu():
     print("Please select an option:")
     print("0. Exit the Program")
-    print("1. Classes Menu")
+    print("1. courses Menu")
     print("2. Students Menu")
 
-def submenu_classes():
-    print("Welcome to the Classes Menu. What would you like to do?")
-    print("1. List of Classes")
-    print("2. Create New Class")
-    print("3. Search for Class by Name")
+def submenu_courses():
+    print("Welcome to the courses Menu. What would you like to do?")
+    print("1. List of courses")
+    print("2. Create New course")
+    print("3. Search for course by Name")
     print("0. Go back")
 
-def submenu_list_of_classes():
-    print(f"Current Classes are 'for class in classes' CLASSSLIST GOES HERE.") 
-    print("Please Select a Class")
-    print("for class in classes print etc")
+def submenu_list_of_courses():
+    print(f"Current courses are 'for course in courses' courseSLIST GOES HERE.") 
+    print("Please Select a course")
+    print("for course in courses print etc")
     print("0: Go Back")
     print("1. TEMPLATE: PHYSICS")
 
-def submenu_class_template():
-    print("Welcome to x Class. What would you like to do?")
+def submenu_course_template():
+    print("Welcome to x course. What would you like to do?")
     print("0. Go Back")
-    print("1. List of Students in this Class")
-    print("2. Update Class Name or Teacher")
-    print("3. Add Student to Class")
-    print("4. Delete Class")
+    print("1. List of Students in this course")
+    print("2. Update course Name or Teacher")
+    print("3. Add Student to course")
+    print("4. Delete course")
 
 def sumbenu_students():
     print("Welcome to the Students Menu. What would you like to do?")
