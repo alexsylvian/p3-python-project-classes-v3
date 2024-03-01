@@ -12,7 +12,8 @@ def exit_program():
     exit()
 
 def list_courses():
-    courses = Course.get_all()
-    for course in courses:
-        print(course)
+    print("it is running")
+    # courses = Course.get_all()
+    # for course in courses:
+    #     print(course)
 

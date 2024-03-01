@@ -3,7 +3,8 @@
 from helpers import (
     exit_program,
     helper_course_template,
-    submenu_2
+    submenu_2,
+    list_courses
 )
 
 
@@ -28,6 +29,7 @@ def courses():
             break
         elif choice == "1":
             list_of_courses()
+            list_courses()
         elif choice == "2":
             submenu_2()
         else:
@@ -50,14 +52,14 @@ def students():
 def menu():
     print("Please select an option:")
     print("0. Exit the Program")
-    print("1. courses Menu")
+    print("1. Courses Menu")
     print("2. Students Menu")
 
 def submenu_courses():
-    print("Welcome to the courses Menu. What would you like to do?")
-    print("1. List of courses")
-    print("2. Create New course")
-    print("3. Search for course by Name")
+    print("Welcome to the Courses Menu. What would you like to do?")
+    print("1. List of Courses")
+    print("2. Create New Course")
+    print("3. Search for Course by Name")
     print("0. Go back")
 
 def submenu_list_of_courses():
@@ -70,19 +72,17 @@ def submenu_list_of_courses():
 def submenu_course_template():
     print("Welcome to x course. What would you like to do?")
     print("0. Go Back")
-    print("1. List of Students in this course")
-    print("2. Update course Name or Teacher")
-    print("3. Add Student to course")
-    print("4. Delete course")
+    print("1. List of Students in this Course")
+    print("2. Update Course Name or Teacher")
+    print("3. Add Student to Course")
+    print("4. Remove Student from Course")
+    print("5. Delete Course")
 
-def sumbenu_students():
+def submenu_students():
     print("Welcome to the Students Menu. What would you like to do?")
     print("0. Go Back")
     print("1. List of Students")
     print("2. Search for Student by Name")
-    print("3. Add New Student")
-    print("4. Update Student Information")
-    print("5. Expel Student")
 
 
 if __name__ == "__main__":
