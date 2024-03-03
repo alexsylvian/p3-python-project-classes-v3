@@ -41,8 +41,8 @@ class Course:
         sql = """
             CREATE TABLE IF NOT EXISTS courses (
             id INTEGER PRIMARY KEY,
-            name TEXT,
-            location TEXT)
+            subject TEXT,
+            teacher TEXT)
         """
         CURSOR.execute(sql)
         CONN.commit()
@@ -55,3 +55,70 @@ class Course:
         """
         CURSOR.execute(sql)
         CONN.commit()
+
+    def save(self):
+        """ Insert a new row with the subject and teacher values of the current Course instance.
+        Update object id attribute using the primary key value of new row.
+        Save the object in local dictionary using table row's PK as dictionary key"""
+        sql = """
+            INSERT INTO courses (subject, teacher)
+            VALUES (?, ?)
+        """
+
+        CURSOR.execute(sql, (self.subject, self.teacher))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self
+
+    @classmethod
+    def create(cls, subject, teacher):
+        """ Initialize a new Course instance and save the object to the database """
+        course = cls(subject, teacher)
+        course.save()
+        return course
+
+    def update(self):
+        """Update the table row corresponding to the current Course instance."""
+        sql = """
+            UPDATE courses
+            SET subject = ?, teacher = ?
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.subject, self.teacher, self.id))
+        CONN.commit()
+
+    def delete(self):
+        """Delete the table row corresponding to the current Course instance,
+        delete the dictionary entry, and reassign id attribute"""
+
+        sql = """
+            DELETE FROM courses
+            WHERE id = ?
+        """
+
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+
+        # Delete the dictionary entry using id as the key
+        del type(self).all[self.id]
+
+        # Set the id to None
+        self.id = None
+
+    @classmethod
+    def instance_from_db(cls, row):
+        """Return a Course object having the attribute values from the table row."""
+
+        # Check the dictionary for an existing instance using the row's primary key
+        course = cls.all.get(row[0])
+        if course:
+            # ensure attributes match row values in case local instance was modified
+            course.subject = row[1]
+            course.teacher = row[2]
+        else:
+            # not in dictionary, create new instance and add to dictionary
+            course = cls(row[1], row[2])
+            course.id = row[0]
+            cls.all[course.id] = course
+        return course
