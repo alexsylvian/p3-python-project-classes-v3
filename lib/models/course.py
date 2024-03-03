@@ -122,3 +122,15 @@ class Course:
             course.id = row[0]
             cls.all[course.id] = course
         return course
+    
+    @classmethod
+    def get_all(cls):
+        """Return a list containing a Department object per row in the table"""
+        sql = """
+            SELECT *
+            FROM departments
+        """
+
+        rows = CURSOR.execute(sql).fetchall()
+
+        return [cls.instance_from_db(row) for row in rows]
