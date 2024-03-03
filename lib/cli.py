@@ -4,7 +4,8 @@ from helpers import (
     exit_program,
     helper_course_template,
     submenu_2,
-    list_courses
+    list_courses,
+    find_student_by_name
 )
 
 
@@ -46,7 +47,16 @@ def list_of_courses():
             helper_course_template()
 
 def students():
-    pass
+    while True:
+        submenu_students()
+        choice = input(">> ")
+
+        if choice == "0":
+            break
+        elif choice == "1":
+            break
+        elif choice == "2":
+            find_student_by_name()
 
 
 def menu():
@@ -76,7 +86,8 @@ def submenu_course_template():
     print("2. Update Course Name or Teacher")
     print("3. Add Student to Course")
     print("4. Remove Student from Course")
-    print("5. Delete Course")
+    print("5. Update Student Information")
+    print("6. Delete Course")
 
 def submenu_students():
     print("Welcome to the Students Menu. What would you like to do?")

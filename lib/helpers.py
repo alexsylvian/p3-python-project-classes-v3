@@ -1,5 +1,6 @@
 # lib/helpers.py
 from models.course import Course
+from models.student import Student
 
 def submenu_2():
     print("Performing Submenu Option 2")
@@ -16,4 +17,11 @@ def list_courses():
     # courses = Course.get_all()
     # for course in courses:
     #     print(course)
+
+def find_student_by_name():
+    print("love")
+    name = input("Enter the student's name: ")
+    student = Student.find_by_name(name)
+    print(student) if student else print(
+        f'Student {name} not found')
 
