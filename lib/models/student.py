@@ -115,3 +115,53 @@ class Student:
 
         # Set the id to None
         self.id = None
+
+    @classmethod
+    def create(cls, name, age, course_id):
+        """ Initialize a new Student instance and save the object to the database """
+        student = cls(name, age, course_id)
+        student.save()
+        return student
+
+    @classmethod
+    def instance_from_db(cls, row):
+        """Return a Student object having the attribute values from the table row."""
+
+        # Check the dictionary for  existing instance using the row's primary key
+        student = cls.all.get(row[0])
+        if student:
+            # ensure attributes match row values in case local instance was modified
+            student.name = row[1]
+            student.age = row[2]
+            student.course_id = row[3]
+        else:
+            # not in dictionary, create new instance and add to dictionary
+            student = cls(row[1], row[2], row[3])
+            student.id = row[0]
+            cls.all[student.id] = student
+        return student
+    
+    @classmethod
+    def get_all(cls):
+        """Return a list containing one Student object per table row"""
+        sql = """
+            SELECT *
+            FROM students
+        """
+
+        rows = CURSOR.execute(sql).fetchall()
+
+        return [cls.instance_from_db(row) for row in rows]
+    
+    @classmethod
+    def find_by_name(cls, name):
+        """Return Student object corresponding to first table row matching specified name"""
+        sql = """
+            SELECT *
+            FROM students
+            WHERE name is ?
+        """
+
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+    
