@@ -49,4 +49,69 @@ class Student:
             raise ValueError(
                 "course_id must reference a course in the database")
         
-    
+    @classmethod
+    def create_table(cls):
+        """ Create a new table to persist the attributes of Student instances """
+        sql = """
+            CREATE TABLE IF NOT EXISTS students (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            age TEXT,
+            course_id INTEGER,
+            FOREIGN KEY (course_id) REFERENCES courses(id))
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def drop_table(cls):
+        """ Drop the table that persists Student instances """
+        sql = """
+            DROP TABLE IF EXISTS students;
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    def save(self):
+        """ Insert a new row with the name, age, and course id values of the current Student object.
+        Update object id attribute using the primary key value of new row.
+        Save the object in local dictionary using table row's PK as dictionary key"""
+        sql = """
+                INSERT INTO students (name, age, course_id)
+                VALUES (?, ?, ?)
+        """
+
+        CURSOR.execute(sql, (self.name, self.age, self.course_id))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self
+
+    def update(self):
+        """Update the table row corresponding to the current Student instance."""
+        sql = """
+            UPDATE students
+            SET name = ?, age = ?, course_id = ?
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.name, self.age,
+                             self.course_id, self.id))
+        CONN.commit()
+
+    def delete(self):
+        """Delete the table row corresponding to the current Student instance,
+        delete the dictionary entry, and reassign id attribute"""
+
+        sql = """
+            DELETE FROM students
+            WHERE id = ?
+        """
+
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+
+        # Delete the dictionary entry using id as the key
+        del type(self).all[self.id]
+
+        # Set the id to None
+        self.id = None
