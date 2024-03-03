@@ -8,9 +8,6 @@ class Course:
         self.id = id
         self.subject = subject
         self.teacher = teacher
-
-    def __repr__(self):
-        return f"<Department {self.id}: {self.subject}, {self.teacher}>"
     
     @property
     def subject(self):
@@ -24,3 +21,37 @@ class Course:
             raise ValueError(
                 "subject must be a non-empty string"
             )
+        
+    @property
+    def teacher(self):
+        return self._teacher
+
+    @teacher.setter
+    def teacher(self, teacher):
+        if isinstance(teacher, str) and len(teacher):
+            self._teacher = teacher
+        else:
+            raise ValueError(
+                "Teacher must be a non-empty string"
+            )
+        
+    @classmethod
+    def create_table(cls):
+        """ Create a new table to persist the attributes of Course instances """
+        sql = """
+            CREATE TABLE IF NOT EXISTS courses (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            location TEXT)
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def drop_table(cls):
+        """ Drop the table that persists Course instances """
+        sql = """
+            DROP TABLE IF EXISTS courses;
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
