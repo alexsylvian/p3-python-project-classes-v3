@@ -3,13 +3,15 @@
 from helpers import (
     exit_program,
     helper_course_template,
-    submenu_2,
-    list_courses,
-    find_student_by_name
+    find_student_by_name,
+    create_new_course,
+    create_initial_table
 )
 
 
 def main():
+    create_initial_table()
+    
     while True:
         menu()
         choice = input(">> ")
@@ -30,9 +32,8 @@ def courses():
             break
         elif choice == "1":
             list_of_courses()
-            list_courses()
         elif choice == "2":
-            submenu_2()
+            create_new_course()
         else:
             print("Invalid choice")
 

@@ -24,4 +24,16 @@ def find_student_by_name():
     student = Student.find_by_name(name)
     print(student) if student else print(
         f'Student {name} not found')
+    
+def create_new_course():
+    subject = input("Enter the course's subject: ")
+    teacher = input("Enter the course's teacher: ")
+    try:
+        course = Course.create(subject, teacher)
+        print(f'Success: {course}')
+    except Exception as exc:
+        print("Error creating course: ", exc)
+
+def create_initial_table():
+    Course.create_table()
 
