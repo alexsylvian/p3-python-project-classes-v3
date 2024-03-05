@@ -54,6 +54,63 @@ def list_courses():
         if selected_id == "0":
             break
 
-        # selected_course = find_course_by_id(int(selected_id))
-        # if selected_course:
-        #     navigate_course(selected_course)
+        selected_course = find_course_by_id(int(selected_id))
+        if selected_course:
+            navigate_course(selected_course)
+
+def find_course_by_id(course_id):
+    for course in Course.get_all():
+        if course.id == course_id:
+            return course
+    return None
+
+def navigate_course(course):
+    while True:
+        print(f"Welcome to the {course.subject} course. What would you like to do?")
+        print("0. Go Back")
+        print("1. See List of Students")
+        print("2. Update Course Information")
+        print("3. Add Student to Course")
+        print("4. Remove Student from Course")
+        print("5. Update Student Information")
+        print("6. Delete Course")
+        choice = input(">> ")
+
+        if choice == "0":
+            break
+        elif choice == "1":
+            list_students_in_course(course)
+        elif choice == "2":
+            update_course_details(course)
+        elif choice == "6":
+            delete_course(course)
+            break
+
+def list_students_in_course(course):
+    students = course.students()
+    print(f"Students in {course.subject}:")
+    for student in students:
+        print(f"{student.id}: {student.name}")
+
+def update_course_details(course):
+    print(f"Current details: {course.subject} - {course.teacher}")
+    new_subject = input("Enter the new subject (leave blank to keep current): ")
+    new_teacher = input("Enter the new teacher (leave blank to keep current): ")
+
+    if new_subject or new_teacher:
+        course.subject = new_subject or course.subject
+        course.teacher = new_teacher or course.teacher
+        course.update()
+        print(f"Course details updated: {course.subject} - {course.teacher}")
+    else:
+        print("No changes made.")
+
+def delete_course(course):
+    confirmation = input(f"Are you sure you want to delete {course.subject} (Y/N)? ").strip().lower()
+
+    if confirmation == "y":
+        course.delete()
+        print(f"Course {course.subject} deleted.")
+        print("click 0 to exit")
+    else:
+        print("Deletion canceled.")

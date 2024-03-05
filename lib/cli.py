@@ -34,7 +34,7 @@ def courses():
         if choice == "0":
             break
         elif choice == "1":
-            list_of_courses()
+            list_courses()
         elif choice == "2":
             create_new_course()
         elif choice == "3":
@@ -42,9 +42,9 @@ def courses():
         else:
             print("Invalid choice")
 
-def list_of_courses():
-    while True:
-        list_courses()
+# def list_of_courses():
+#     while True:
+#         list_courses()
 
         # create_course_list()
         # submenu_list_of_courses()
