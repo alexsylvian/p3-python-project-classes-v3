@@ -48,7 +48,7 @@ def list_courses():
     while True:
         print("Current courses:")
         for course in courses:
-            print(f"{course.id}: {course.subject} - {course.teacher}")
+            print(f"{course.id}. {course.subject} - {course.teacher}")
 
         selected_id = input("Enter the course # to view details (0 to go back): ")
         if selected_id == "0":
@@ -110,7 +110,6 @@ def delete_course(course):
 
     if confirmation == "y":
         course.delete()
-        print(f"Course {course.subject} deleted.")
-        print("click 0 to exit")
+        print(f"{course.subject} course deleted.")
     else:
         print("Deletion canceled.")
