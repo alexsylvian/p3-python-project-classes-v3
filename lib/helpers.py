@@ -37,3 +37,8 @@ def create_new_course():
 def create_initial_table():
     Course.create_table()
 
+def create_course_list():
+    courses = Course.get_all()
+    for course in courses:
+        print(course.subject)
+

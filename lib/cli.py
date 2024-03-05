@@ -5,13 +5,14 @@ from helpers import (
     helper_course_template,
     find_student_by_name,
     create_new_course,
-    create_initial_table
+    create_initial_table,
+    create_course_list
 )
 
 
 def main():
     create_initial_table()
-    
+
     while True:
         menu()
         choice = input(">> ")
@@ -39,6 +40,7 @@ def courses():
 
 def list_of_courses():
     while True:
+        create_course_list()
         submenu_list_of_courses()
         choice = input(">> ")
         

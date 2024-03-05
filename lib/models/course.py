@@ -125,12 +125,38 @@ class Course:
     
     @classmethod
     def get_all(cls):
-        """Return a list containing a Department object per row in the table"""
+        """Return a list containing a Course object per row in the table"""
         sql = """
             SELECT *
-            FROM departments
+            FROM courses
         """
 
         rows = CURSOR.execute(sql).fetchall()
 
         return [cls.instance_from_db(row) for row in rows]
+    
+    @classmethod
+    def find_by_subject(cls, subject):
+        """Return a Course object corresponding to first table row matching specified subject"""
+        sql = """
+            SELECT *
+            FROM courses
+            WHERE subject is ?
+        """
+
+        row = CURSOR.execute(sql, (subject,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+
+    def students(self):
+        """Return list of students associated with current course"""
+        from models.student import Student
+        sql = """
+            SELECT * FROM students
+            WHERE course_id = ?
+        """
+        CURSOR.execute(sql, (self.id,),)
+
+        rows = CURSOR.fetchall()
+        return [
+            Student.instance_from_db(row) for row in rows
+        ]
