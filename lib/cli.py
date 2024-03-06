@@ -9,7 +9,9 @@ from helpers import (
     create_course_list,
     find_course_by_subject,
     list_courses,
-    create_new_student
+    create_new_student,
+    create_initial__student_table,
+    list_of_students
 )
 
 
@@ -57,14 +59,16 @@ def courses():
         #     helper_course_template()
 
 def students():
+    create_initial__student_table()
+
     while True:
         submenu_students()
         choice = input(">> ")
 
         if choice == "0":
             break
-        # elif choice == "1":
-        #     list_of_students()
+        elif choice == "1":
+            list_of_students()
         elif choice == "2":
             find_student_by_name()
         elif choice == "3":

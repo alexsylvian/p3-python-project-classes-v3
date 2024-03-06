@@ -30,12 +30,10 @@ class Student:
 
     @age.setter
     def age(self, age):
-        if isinstance(age, str) and len(age):
+        if isinstance(age, (int, str)) and (isinstance(age, str) and len(age) or isinstance(age, int)):
             self._age = age
         else:
-            raise ValueError(
-                "age must be a non-empty string"
-            )
+            raise ValueError("Age must be a non-empty string or an integer")
         
     @property
     def course_id(self):
@@ -43,11 +41,10 @@ class Student:
 
     @course_id.setter
     def course_id(self, course_id):
-        if type(course_id) is int and Course.find_by_id(course_id):
+        if course_id is None or (isinstance(course_id, int) and Course.find_by_id(course_id)):
             self._course_id = course_id
         else:
-            raise ValueError(
-                "course_id must reference a course in the database")
+            raise ValueError("course_id must reference an existing course in the database or be None")
         
     @classmethod
     def create_table(cls):

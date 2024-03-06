@@ -65,8 +65,7 @@ def navigate_course(course):
         print("2. Update Course Information")
         print("3. Add Student to Course")
         print("4. Remove Student from Course")
-        print("5. Update Student Information")
-        print("6. Delete Course")
+        print("5. Delete Course")
         choice = input(">> ")
 
         if choice == "0":
@@ -75,7 +74,9 @@ def navigate_course(course):
             list_students_in_course(course)
         elif choice == "2":
             update_course_details(course)
-        elif choice == "6":
+        elif choice == "3":
+            add_student_to_course(course)
+        elif choice == "5":
             delete_course(course)
             break
 
@@ -98,6 +99,28 @@ def update_course_details(course):
     else:
         print("No changes made.")
 
+def add_student_to_course(course):
+    print("Adding a student to the course.")
+
+    # Get student information
+    student_name = input("Enter the student's name: ")
+
+    # Assuming you have a find_by_name method in your Student class
+    student = Student.find_by_name(student_name)
+
+    if student:
+        # Assign the course_id to the student
+        student.course_id = course.id
+
+        # Assuming you have an update method in your Student class to save changes
+        try:
+            student.update()
+            print(f'Successfully added {student_name} to {course.subject} course.')
+        except Exception as exc:
+            print(f"Error updating student information: {exc}")
+    else:
+        print(f"Student {student_name} not found.")
+
 def delete_course(course):
     confirmation = input(f"Are you sure you want to delete {course.subject} (Y/N)? ").strip().lower()
 
@@ -110,21 +133,33 @@ def delete_course(course):
 
 #################
         
+def create_initial__student_table():
+    Student.create_table()
+
+def list_of_students():
+    students = Student.get_all()
+    for student in students:
+        print(f"{student.name}, age {student.age}")
+        
 def find_student_by_name():
-    print("love")
     name = input("Enter the student's name: ")
     student = Student.find_by_name(name)
-    print(student) if student else print(
-        f'Student {name} not found')
+
+    if student:
+        if student.course_id is not None:
+            print(f"{student.name}, age {student.age}, in {student.course_id} course")
+        else:
+            print(f"{student.name}, age {student.age}, not currently enrolled in a course")
+    else:
+        print(f'Student {name} not found')
         
 def create_new_student():
-    print("Creating a new student.")
+    print("Creating a new student:")
     name = input("Enter the student's name: ")
     age = int(input("Enter the student's age: "))
-    course_id = input("Enter the student's course: ")
 
     try:
-        student = Student.create(name, age)
-        print(f"Success: {student}")
+        student = Student.create(name, age, course_id=None)
+        print(f"Success: Welcome, {student.name}")
     except Exception as exc:
         print("Error creating student: ", exc)
