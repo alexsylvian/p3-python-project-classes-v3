@@ -102,17 +102,13 @@ def update_course_details(course):
 def add_student_to_course(course):
     print("Adding a student to the course.")
 
-    # Get student information
     student_name = input("Enter the student's name: ")
 
-    # Assuming you have a find_by_name method in your Student class
     student = Student.find_by_name(student_name)
 
     if student:
-        # Assign the course_id to the student
         student.course_id = course.id
 
-        # Assuming you have an update method in your Student class to save changes
         try:
             student.update()
             print(f'Successfully added {student_name} to {course.subject} course.')

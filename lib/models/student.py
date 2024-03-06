@@ -41,7 +41,7 @@ class Student:
 
     @course_id.setter
     def course_id(self, course_id):
-        if course_id is None or (isinstance(course_id, int) and Course.find_by_id(course_id)):
+        if course_id is None or (isinstance(course_id, int)):
             self._course_id = course_id
         else:
             raise ValueError("course_id must reference an existing course in the database or be None")
