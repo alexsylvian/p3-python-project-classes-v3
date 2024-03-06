@@ -11,13 +11,6 @@ def helper_course_template():
 def exit_program():
     print("Exiting the program.")
     exit()
-
-def find_student_by_name():
-    print("love")
-    name = input("Enter the student's name: ")
-    student = Student.find_by_name(name)
-    print(student) if student else print(
-        f'Student {name} not found')
     
 def create_new_course():
     subject = input("Enter the course's subject: ")
@@ -113,3 +106,25 @@ def delete_course(course):
         print(f"{course.subject} course deleted.")
     else:
         print("Deletion canceled.")
+
+
+#################
+        
+def find_student_by_name():
+    print("love")
+    name = input("Enter the student's name: ")
+    student = Student.find_by_name(name)
+    print(student) if student else print(
+        f'Student {name} not found')
+        
+def create_new_student():
+    print("Creating a new student.")
+    name = input("Enter the student's name: ")
+    age = int(input("Enter the student's age: "))
+    course_id = input("Enter the student's course: ")
+
+    try:
+        student = Student.create(name, age)
+        print(f"Success: {student}")
+    except Exception as exc:
+        print("Error creating student: ", exc)

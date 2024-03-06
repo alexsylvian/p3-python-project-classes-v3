@@ -5,7 +5,7 @@ class Student:
     
     all = {}
 
-    def __init__(self, name, age, course_id, id=None):
+    def __init__(self, name, age, course_id=None, id=None):
         self.id = id
         self.name = name
         self.age = age

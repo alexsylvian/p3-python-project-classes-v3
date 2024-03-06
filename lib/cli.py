@@ -8,7 +8,8 @@ from helpers import (
     create_initial_table,
     create_course_list,
     find_course_by_subject,
-    list_courses
+    list_courses,
+    create_new_student
 )
 
 
@@ -62,10 +63,17 @@ def students():
 
         if choice == "0":
             break
-        elif choice == "1":
-            break
+        # elif choice == "1":
+        #     list_of_students()
         elif choice == "2":
             find_student_by_name()
+        elif choice == "3":
+            create_new_student()
+        # elif choice == "5":
+        #     update_student_information()
+        # elif choice == "5":
+        #     expel_student()
+
 
 
 def menu():
@@ -85,7 +93,7 @@ def submenu_list_of_courses():
     print(f"Current courses are 'for course in courses' courseSLIST GOES HERE.") 
     print("Please Select a course")
     print("for course in courses print etc")
-    print("0: Go Back")
+    print("0. Go Back")
     print("1. TEMPLATE: PHYSICS")
 
 def submenu_course_template():
@@ -95,14 +103,16 @@ def submenu_course_template():
     print("2. Update Course Name or Teacher")
     print("3. Add Student to Course")
     print("4. Remove Student from Course")
-    print("5. Update Student Information")
-    print("6. Delete Course")
+    print("5. Delete Course")
 
 def submenu_students():
     print("Welcome to the Students Menu. What would you like to do?")
     print("0. Go Back")
     print("1. List of Students")
     print("2. Search for Student by Name")
+    print("3. Create New Student")
+    print("4. Update Student Information")
+    print("5. Expel Student")
 
 
 if __name__ == "__main__":
