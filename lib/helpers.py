@@ -208,7 +208,12 @@ def expel_student():
     student = Student.find_by_name(name)
 
     if student:
-        student.delete()
-        print(f"Student {name} has been expelled.")
+        confirmation = input(f"Are you sure you want to expel {name}? (y/n): ").lower()
+
+        if confirmation == 'y':
+            student.delete()
+            print(f"Student {name} has been expelled.")
+        else:
+            print(f"Expulsion of {name} canceled.")
     else:
         print(f'Student {name} not found.')
