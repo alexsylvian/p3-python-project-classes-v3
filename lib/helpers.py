@@ -179,3 +179,27 @@ def create_new_student():
         print(f"Success: Welcome, {student.name}")
     except Exception as exc:
         print("Error creating student: ", exc)
+
+def update_student_information():
+    print("Updating student information.")
+
+    student_name = input("Enter the student's name: ")
+
+    student = Student.find_by_name(student_name)
+
+    if student:
+        updated_name = input(f"Enter the updated name for {student_name} (press Enter to keep the same): ")
+        updated_age = input(f"Enter the updated age for {student_name} (press Enter to keep the same): ")
+
+        if updated_name:
+            student.name = updated_name
+        if updated_age:
+            student.age = updated_age
+
+        try:
+            student.update()
+            print(f'Successfully updated information for {student_name}.')
+        except Exception as exc:
+            print(f"Error updating student information: {exc}")
+    else:
+        print(f"Student {student_name} not found.")

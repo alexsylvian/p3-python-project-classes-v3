@@ -12,6 +12,7 @@ from helpers import (
     create_new_student,
     create_initial__student_table,
     list_of_students,
+    update_student_information
 )
 
 
@@ -73,8 +74,8 @@ def students():
             find_student_by_name()
         elif choice == "3":
             create_new_student()
-        # elif choice == "4":
-        #     update_student_information()
+        elif choice == "4":
+            update_student_information()
         # elif choice == "5":
         #     expel_student()
 
