@@ -2,7 +2,6 @@
 
 from helpers import (
     exit_program,
-    helper_course_template,
     find_student_by_name,
     create_new_course,
     create_initial_table,
@@ -45,19 +44,6 @@ def courses():
             find_course_by_subject()
         else:
             print("Invalid choice")
-
-# def list_of_courses():
-#     while True:
-#         list_courses()
-
-        # create_course_list()
-        # submenu_list_of_courses()
-        # choice = input(">> ")
-        
-        # if choice == "0":
-        #     break
-        # elif choice == "1":
-        #     helper_course_template()
 
 def students():
     create_initial__student_table()
