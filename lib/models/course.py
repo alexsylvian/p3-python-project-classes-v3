@@ -107,6 +107,18 @@ class Course:
         self.id = None
 
     @classmethod
+    def find_by_id(cls, id):
+        """Return a Course object corresponding to the table row matching the specified primary key"""
+        sql = """
+            SELECT *
+            FROM courses
+            WHERE id = ?
+        """
+
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+
+    @classmethod
     def instance_from_db(cls, row):
         """Return a Course object having the attribute values from the table row."""
 

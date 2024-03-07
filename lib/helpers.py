@@ -2,12 +2,6 @@
 from models.course import Course
 from models.student import Student
 
-def submenu_2():
-    print("Performing Submenu Option 2")
-
-def helper_course_template():
-    print("course is PHYSICS. TEACHER is LOL")
-
 def exit_program():
     print("Exiting the program.")
     exit()
@@ -155,7 +149,11 @@ def create_initial__student_table():
 def list_of_students():
     students = Student.get_all()
     for student in students:
-        print(f"{student.name}, age {student.age}")
+        if student.course_id is not None:
+            course_subject = Course.find_by_id(student.course_id).subject
+            print(f"{student.name}, age {student.age}, in {course_subject} course")
+        else:
+            print(f"{student.name}, age {student.age}, not currently enrolled in a course")
         
 def find_student_by_name():
     name = input("Enter the student's name: ")
@@ -163,7 +161,8 @@ def find_student_by_name():
 
     if student:
         if student.course_id is not None:
-            print(f"{student.name}, age {student.age}, in {student.course_id} course")
+            course_subject = Course.find_by_id(student.course_id).subject
+            print(f"{student.name}, age {student.age}, in {course_subject} course")
         else:
             print(f"{student.name}, age {student.age}, not currently enrolled in a course")
     else:
@@ -203,3 +202,13 @@ def update_student_information():
             print(f"Error updating student information: {exc}")
     else:
         print(f"Student {student_name} not found.")
+
+def expel_student():
+    name = input("Enter the student's name to expel: ")
+    student = Student.find_by_name(name)
+
+    if student:
+        student.delete()
+        print(f"Student {name} has been expelled.")
+    else:
+        print(f'Student {name} not found.')
