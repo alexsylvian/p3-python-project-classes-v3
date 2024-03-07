@@ -11,7 +11,7 @@ from helpers import (
     list_courses,
     create_new_student,
     create_initial__student_table,
-    list_of_students
+    list_of_students,
 )
 
 
@@ -73,7 +73,7 @@ def students():
             find_student_by_name()
         elif choice == "3":
             create_new_student()
-        # elif choice == "5":
+        # elif choice == "4":
         #     update_student_information()
         # elif choice == "5":
         #     expel_student()
@@ -90,7 +90,7 @@ def submenu_courses():
     print("Welcome to the Courses Menu. What would you like to do?")
     print("1. List of Courses")
     print("2. Create New Course")
-    print("3. Search for Course by Name")
+    print("3. Search for Course by Subject")
     print("0. Go back")
 
 def submenu_list_of_courses():

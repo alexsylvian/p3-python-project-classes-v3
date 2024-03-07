@@ -59,7 +59,7 @@ def find_course_by_id(course_id):
 
 def navigate_course(course):
     while True:
-        print(f"Welcome to the {course.subject} course. What would you like to do?")
+        print(f"Welcome to the {course.subject} course, taught by {course.teacher}. What would you like to do?")
         print("0. Go Back")
         print("1. See List of Students")
         print("2. Update Course Information")
@@ -76,6 +76,8 @@ def navigate_course(course):
             update_course_details(course)
         elif choice == "3":
             add_student_to_course(course)
+        elif choice == "4":
+            remove_student_from_course(course)
         elif choice == "5":
             delete_course(course)
             break
@@ -112,6 +114,24 @@ def add_student_to_course(course):
         try:
             student.update()
             print(f'Successfully added {student_name} to {course.subject} course.')
+        except Exception as exc:
+            print(f"Error updating student information: {exc}")
+    else:
+        print(f"Student {student_name} not found.")
+
+def remove_student_from_course(course):
+    print("Removing a student from the course.")
+
+    student_name = input("Enter the student's name: ")
+
+    student = Student.find_by_name(student_name)
+
+    if student:
+        student.course_id = None
+
+        try:
+            student.update()
+            print(f'Successfully removed {student_name} from {course.subject} course.')
         except Exception as exc:
             print(f"Error updating student information: {exc}")
     else:
