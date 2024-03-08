@@ -5,7 +5,10 @@ from models.student import Student
 def exit_program():
     print("Exiting the program.")
     exit()
-    
+
+def create_initial_table():
+    Course.create_table()
+
 def create_new_course():
     subject = input("Enter the course's subject: ")
     teacher = input("Enter the course's teacher: ")
@@ -14,9 +17,6 @@ def create_new_course():
         print(f'Success: {course.subject} course created')
     except Exception as exc:
         print("Error creating course: ", exc)
-
-def create_initial_table():
-    Course.create_table()
 
 def create_course_list():
     courses = Course.get_all()
