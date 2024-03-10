@@ -45,7 +45,6 @@ def list_courses():
             break
 
         selected_course = courses[int(selected_id) - 1]
-        # selected_course = find_course_by_id(int(selected_id))
         if selected_course:
             navigate_course(selected_course)
 
@@ -61,7 +60,7 @@ def navigate_course(course):
         print("0. Go Back")
         print("1. See List of Students")
         print("2. Update Course Information")
-        print("2.5: Create New Student and Add to Course:")
+        # print("2.5: Create New Student and Add to Course:")
         print("3. Add Enrolled Student to Course")
         print("4. Remove Student from Course")
         print("5. Delete Course")
@@ -84,8 +83,10 @@ def navigate_course(course):
 def list_students_in_course(course):
     students = course.students()
     print(f"Students in {course.subject}:")
-    for student in students:
-        print(f"{student.id}: {student.name}")
+    for i, student in enumerate(students, start=1):
+        print(f"{i}. {student.name} - {student.age}")
+    # for student in students:
+    #     print(f"{student.id}: {student.name}")
 
 def update_course_details(course):
     print(f"Current details: {course.subject} - {course.teacher}")
