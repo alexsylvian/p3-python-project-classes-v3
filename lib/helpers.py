@@ -29,19 +29,23 @@ def find_course_by_subject():
     print(course.subject + ', ' + course.teacher) if course else print(
         f'Course {subject} not found')
     
+# for i, value in enumerate(values, start=1):
+# ...     print(i, value)
+    
 def list_courses():
     courses = Course.get_all()
 
     while True:
         print("Current courses:")
-        for course in courses:
-            print(f"{course.id}. {course.subject} - {course.teacher}")
+        for i, course in enumerate(courses, start=1):
+            print(f"{i}. {course.subject} - {course.teacher}")
 
         selected_id = input("Enter the course # to view details (0 to go back): ")
         if selected_id == "0":
             break
 
-        selected_course = find_course_by_id(int(selected_id))
+        selected_course = courses[int(selected_id) - 1]
+        # selected_course = find_course_by_id(int(selected_id))
         if selected_course:
             navigate_course(selected_course)
 
@@ -57,7 +61,8 @@ def navigate_course(course):
         print("0. Go Back")
         print("1. See List of Students")
         print("2. Update Course Information")
-        print("3. Add Student to Course")
+        print("2.5: Create New Student and Add to Course:")
+        print("3. Add Enrolled Student to Course")
         print("4. Remove Student from Course")
         print("5. Delete Course")
         choice = input(">> ")

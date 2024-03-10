@@ -11,7 +11,7 @@ from helpers import (
     find_student_by_name,
     create_new_student,
     update_student_information,
-    expel_student
+    expel_student,
 )
 
 
@@ -44,6 +44,31 @@ def courses():
             find_course_by_subject()
         else:
             print("Invalid choice")
+
+def navigate_course(course):
+    while True:
+        print(f"Welcome to the {course.subject} course, taught by {course.teacher}. What would you like to do?")
+        print("0. Go Back")
+        print("1. See List of Students")
+        print("2. Update Course Information")
+        print("3. Add Student to Course")
+        print("4. Remove Student from Course")
+        print("5. Delete Course")
+        choice = input(">> ")
+
+        if choice == "0":
+            break
+        elif choice == "1":
+            list_students_in_course(course)
+        elif choice == "2":
+            update_course_details(course)
+        elif choice == "3":
+            add_student_to_course(course)
+        elif choice == "4":
+            remove_student_from_course(course)
+        elif choice == "5":
+            delete_course(course)
+            break
 
 def students():
     create_initial__student_table()
