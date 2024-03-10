@@ -60,10 +60,10 @@ def navigate_course(course):
         print("0. Go Back")
         print("1. See List of Students")
         print("2. Update Course Information")
-        # print("2.5: Create New Student and Add to Course:")
-        print("3. Add Enrolled Student to Course")
-        print("4. Remove Student from Course")
-        print("5. Delete Course")
+        print("3: Create New Student and Add to Course:")
+        print("4. Add Enrolled Student to Course")
+        print("5. Remove Student from Course")
+        print("6. Delete Course")
         choice = input(">> ")
 
         if choice == "0":
@@ -73,10 +73,12 @@ def navigate_course(course):
         elif choice == "2":
             update_course_details(course)
         elif choice == "3":
-            add_student_to_course(course)
+            create_and_add_new_student()
         elif choice == "4":
-            remove_student_from_course(course)
+            add_student_to_course(course)
         elif choice == "5":
+            remove_student_from_course(course)
+        elif choice == "6":
             delete_course(course)
             break
 
@@ -85,8 +87,6 @@ def list_students_in_course(course):
     print(f"Students in {course.subject}:")
     for i, student in enumerate(students, start=1):
         print(f"{i}. {student.name} - {student.age}")
-    # for student in students:
-    #     print(f"{student.id}: {student.name}")
 
 def update_course_details(course):
     print(f"Current details: {course.subject} - {course.teacher}")
@@ -100,6 +100,34 @@ def update_course_details(course):
         print(f"Course details updated: {course.subject} - {course.teacher}")
     else:
         print("No changes made.")
+
+def create_and_add_new_student():
+    print("Creating a new student:")
+    name = input("Enter the student's name: ")
+    age = int(input("Enter the student's age: "))
+
+    # List available courses
+    courses = Course.get_all()
+    print("Available courses:")
+    for i, course in enumerate(courses, start=1):
+        print(f"{i}. {course.subject} - {course.teacher}")
+
+    # Prompt user to select a course
+    selected_course_index = int(input("Enter the course number to enroll the student (0 for none): ")) - 11
+
+    if selected_course_index == -1:
+        course_id = None  # If the user enters 0, set course_id to None
+    elif 0 <= selected_course_index < len(courses):
+        course_id = courses[selected_course_index].id
+    else:
+        print("Invalid course selection. Student will not be enrolled.")
+        return
+
+    try:
+        student = Student.create(name, age, course_id)
+        print(f"Success: {student.name} has been enrolled in the course.")
+    except Exception as exc:
+        print("Error creating student: ", exc)
 
 def add_student_to_course(course):
     print("Adding a student to the course.")
