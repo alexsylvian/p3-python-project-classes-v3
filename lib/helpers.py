@@ -108,7 +108,7 @@ def create_and_add_new_student():
     for i, course in enumerate(courses, start=1):
         print(f"{i}. {course.subject} - {course.teacher}")
 
-    selected_course_index = int(input("Enter the course number to enroll the student (0 for none): ")) - 11
+    selected_course_index = int(input("Enter the course number to enroll the student (0 for none): ")) - 1
 
     if selected_course_index == -1:
         course_id = None
@@ -127,13 +127,10 @@ def create_and_add_new_student():
 def create_and_add_student_to__selected_course(course):
     print("Creating and adding a new student to the course.")
 
-    # Prompt user to enter the student's name
     student_name = input("Enter the student's name: ")
     
-    # Prompt user to enter the student's age
     student_age = int(input("Enter the student's age: "))
 
-    # Create a new student
     try:
         student = Student.create(student_name, student_age, course_id=course.id)
         print(f"Success: {student.name} has been added to {course.subject} course.")
