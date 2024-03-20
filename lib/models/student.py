@@ -124,15 +124,12 @@ class Student:
     def instance_from_db(cls, row):
         """Return a Student object having the attribute values from the table row."""
 
-        # Check the dictionary for  existing instance using the row's primary key
         student = cls.all.get(row[0])
         if student:
-            # ensure attributes match row values in case local instance was modified
             student.name = row[1]
             student.age = row[2]
             student.course_id = row[3]
         else:
-            # not in dictionary, create new instance and add to dictionary
             student = cls(row[1], row[2], row[3])
             student.id = row[0]
             cls.all[student.id] = student
