@@ -1,5 +1,4 @@
 from models.__init__ import CURSOR, CONN
-from models.course import Course
 
 class Student:
     

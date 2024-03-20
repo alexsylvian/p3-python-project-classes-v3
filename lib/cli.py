@@ -67,6 +67,8 @@ def students():
             update_student_information()
         elif choice == "5":
             expel_student()
+        else:
+            print("Invalid Choice")
 
 #####################
             

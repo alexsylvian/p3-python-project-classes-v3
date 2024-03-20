@@ -41,9 +41,15 @@ def list_courses():
         if selected_id == "0":
             break
 
-        selected_course = courses[int(selected_id) - 1]
-        if selected_course:
-            navigate_course(selected_course)
+        try:
+            selected_id = int(selected_id)
+            if 1 <= selected_id <= len(courses):
+                selected_course = courses[selected_id - 1]
+                navigate_course(selected_course)
+            else:
+                print("Invalid Choice. Please Select a Number on the List of Courses")
+        except ValueError:
+            print("Invalid Choice")
 
 def find_course_by_id(course_id):
     for course in Course.get_all():
@@ -77,7 +83,9 @@ def navigate_course(course):
             remove_student_from_course(course)
         elif choice == "6":
             delete_course(course)
-            break
+            list_courses()
+        else:
+            print("Invalid Choice")
 
 def list_students_in_course(course):
     students = course.students()
