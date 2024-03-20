@@ -109,7 +109,13 @@ def update_course_details(course):
 def create_and_add_new_student():
     print("Creating a new student:")
     name = input("Enter the student's name: ")
-    age = int(input("Enter the student's age: "))
+    while True:
+        age_input = input("Enter the student's age: ")
+        if age_input.isdigit():
+            age = int(age_input)
+            break
+        else:
+            print("Invalid input. Please enter a valid age as a number.")
 
     courses = Course.get_all()
     print("Available courses:")
@@ -137,7 +143,13 @@ def create_and_add_student_to__selected_course(course):
 
     student_name = input("Enter the student's name: ")
     
-    student_age = int(input("Enter the student's age: "))
+    while True:
+        age_input = input("Enter the student's age: ")
+        if age_input.isdigit():
+            student_age = int(age_input)
+            break
+        else:
+            print("Invalid input. Please enter a valid age as a number.")
 
     try:
         student = Student.create(student_name, student_age, course_id=course.id)
@@ -220,7 +232,13 @@ def find_student_by_name():
 def create_new_student():
     print("Creating a new student:")
     name = input("Enter the student's name: ")
-    age = int(input("Enter the student's age: "))
+    while True:
+        age_input = input("Enter the student's age: ")
+        if age_input.isdigit():
+            age = int(age_input)
+            break
+        else:
+            print("Invalid input. Please enter a valid age as a number.")
 
     try:
         student = Student.create(name, age, course_id=None)
