@@ -12,7 +12,7 @@ from helpers import (
     create_new_student,
     create_and_add_new_student,
     update_student_information,
-    expel_student
+    expel_student,
 )
 
 

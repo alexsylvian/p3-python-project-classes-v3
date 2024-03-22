@@ -112,7 +112,7 @@ def create_and_add_new_student():
     while True:
         age_input = input("Enter the student's age: ")
         if age_input.isdigit():
-            age = int(age_input)
+            age = age_input
             break
         else:
             print("Invalid input. Please enter a valid age as a number.")
